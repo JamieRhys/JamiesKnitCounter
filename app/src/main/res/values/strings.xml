@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Jamies Knit Counter</string>
+
+    <string name="title_add_project">Add Project</string>
+    <string name="title_confirm">Are you sure?</string>
+    <string name="title_success">Success!</string>
+    <string name="title_failure">Failure.</string>
+
+    <string name="label_project_name">Project Name</string>
+    <string name="label_delete_project">Do you want to delete the project %s?</string>
+    <string name="label_project_added_success">Project added successfully!</string>
+    <string name="label_project_added_failure">Project could not be added.</string>
+
+    <string name="button_confirm">Confirm</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_ok">OK</string>
+</resources>
