@@ -34,6 +34,7 @@ import androidx.navigation.compose.rememberNavController
 import com.sycosoft.jkc.R
 import com.sycosoft.jkc.database.repositories.AppRepository
 import com.sycosoft.jkc.ui.theme.JKCTheme
+import com.sycosoft.jkc.util.LoadingState
 import com.sycosoft.jkc.viewmodels.AddProjectPageViewModel
 
 /**
@@ -46,7 +47,7 @@ fun AddProjectPage(
     viewModel: AddProjectPageViewModel
 ) {
     var projectName by rememberSaveable { mutableStateOf("") }
-    val result by viewModel.result.collectAsState()
+    val result by viewModel.loadingState.collectAsState()
 
     var showSuccessDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -88,7 +89,7 @@ fun AddProjectPage(
                 Text(text = "Add")
             }
 
-            if(result == AddProjectPageViewModel.Companion.Result.Success) {
+            if(result == LoadingState.Success) {
                 AlertDialog(
                     onDismissRequest = {  },
                     title = { Text(stringResource(R.string.title_add_project)) },
@@ -103,11 +104,11 @@ fun AddProjectPage(
                 )
             }
 
-            if(result == AddProjectPageViewModel.Companion.Result.Loading) {
+            if(result == LoadingState.Loading) {
                 CircularProgressIndicator()
             }
 
-            if(result == AddProjectPageViewModel.Companion.Result.Failure) {
+            if(result == LoadingState.Failure) {
                 AlertDialog(
                     onDismissRequest = {},
                     title = { Text(stringResource(R.string.title_failure)) },

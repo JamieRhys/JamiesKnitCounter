@@ -2,7 +2,6 @@ package com.sycosoft.jkc.ui.views
 
 import android.content.res.Configuration
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,7 +14,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -23,10 +21,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,6 +40,7 @@ import com.sycosoft.jkc.database.repositories.AppRepository
 import com.sycosoft.jkc.navigation.NavigationDestination
 import com.sycosoft.jkc.ui.components.ListItem
 import com.sycosoft.jkc.ui.components.ProjectStat
+import com.sycosoft.jkc.ui.components.headers.HomePageHeader
 import com.sycosoft.jkc.ui.theme.JKCTheme
 import com.sycosoft.jkc.viewmodels.HomePageViewModel
 
@@ -87,27 +84,12 @@ fun HomePage(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(5.dp)
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        // Overall stitches for all projects in database.
-                        ProjectStat(count = "0", title = "Stitches")
-                        // Overall rows for all projects in database.
-                        ProjectStat(count = "0", title = "Rows")
-                        // Overall projects completed.
-                        ProjectStat(count = "0", title = "Completed")
-                        // Overall time spent on all projects.
-                        ProjectStat(count = "0:00", title = "Time")
-                    }
-
-                }
+                HomePageHeader(
+                    stitchCount = "0",
+                    rowCount = "0",
+                    completedCount = "0",
+                    timeSpent = "0:00",
+                )
             }
 
             Row {
@@ -116,6 +98,9 @@ fun HomePage(
                     items(projectList.size) { project ->
                         ListItem(
                             name = projectList[project].projectName,
+                            onClicked = {
+                                navController.navigate(NavigationDestination.ProjectPage.route.plus("/${projectList[project].id}"))
+                            },
                             onEditButtonPressed = {  },
                             onDeleteButtonPressed = {
                                 projectToDelete = projectList[project].id               // Get the id of the project to be deleted.

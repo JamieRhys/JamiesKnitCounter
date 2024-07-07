@@ -5,13 +5,20 @@
     <string name="title_confirm">Are you sure?</string>
     <string name="title_success">Success!</string>
     <string name="title_failure">Failure.</string>
+    <string name="title_uhoh">Uh Oh!</string>
 
-    <string name="label_project_name">Project Name</string>
     <string name="label_delete_project">Do you want to delete the project %s?</string>
-    <string name="label_project_added_success">Project added successfully!</string>
+    <string name="label_invalid_project_id">Invalid project ID passed. Returning back to home page.</string>
     <string name="label_project_added_failure">Project could not be added.</string>
+    <string name="label_project_added_success">Project added successfully!</string>
+    <string name="label_project_name">Project Name</string>
+    <string name="label_completed">Completed</string>
+    <string name="label_global">Global</string>
+    <string name="label_rows">Rows</string>
+    <string name="label_stitches">Stitches</string>
+    <string name="label_time">Time</string>
 
-    <string name="button_confirm">Confirm</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_confirm">Confirm</string>
     <string name="button_ok">OK</string>
 </resources>

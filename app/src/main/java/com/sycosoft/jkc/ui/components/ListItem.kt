@@ -36,14 +36,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sycosoft.jkc.ui.theme.JKCTheme
 
+/**
+ * Displays the name of the project given to it. When the user long clicks on the [ListItem], it will
+ * animate buttons in and out which allows the user to either delete or edit the project in question.
+ *
+ * @param name The name of the project to be displayed.
+ * @param onClicked The function to be called when the [ListItem] is clicked on.
+ * @param onEditButtonPressed The function to be called when the edit button is pressed.
+ * @param onDeleteButtonPressed The function to be called when the delete button is pressed.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListItem(
     name: String,
+    onClicked: (() -> Unit),
     onEditButtonPressed: (() -> Unit),
     onDeleteButtonPressed: (() -> Unit),
 ) {
+    // Controls the visibility of the button rail.
     var showButtons by remember { mutableStateOf(false) }
+
+    // Controls the animation of the button rail.
     val transitionState = remember { MutableTransitionState(showButtons) }
     transitionState.targetState = showButtons
 
@@ -53,11 +66,9 @@ fun ListItem(
             .padding(5.dp)
             .combinedClickable(
                 onClick = {
-                    Log.d("ListItem", "$name clicked.")
-                    onEditButtonPressed()
+                    onClicked()
                 },
                 onLongClick = {
-                    //onDeleteButtonPressed()
                     showButtons = !showButtons
                 }
             )
@@ -115,6 +126,7 @@ private fun LM_ListItem() {
         Surface {
             ListItem(
                 name = "Project",
+                onClicked = {},
                 onEditButtonPressed = {},
                 onDeleteButtonPressed = {},
             )
@@ -129,6 +141,7 @@ private fun DM_ListItem() {
         Surface {
             ListItem(
                 name = "Project",
+                onClicked = {},
                 onEditButtonPressed = {},
                 onDeleteButtonPressed = {},
             )

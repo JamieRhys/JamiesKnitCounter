@@ -2,8 +2,12 @@ package com.sycosoft.jkc.database.repositories
 
 import android.content.Context
 import android.util.Log
+import androidx.compose.ui.res.stringResource
+import com.sycosoft.jkc.R
 import com.sycosoft.jkc.database.AppDatabase
+import com.sycosoft.jkc.database.dao.CounterDao
 import com.sycosoft.jkc.database.dao.ProjectDao
+import com.sycosoft.jkc.database.entities.Counter
 import com.sycosoft.jkc.database.entities.Project
 import com.sycosoft.jkc.database.result.DatabaseResult
 import com.sycosoft.jkc.database.result.DatabaseResultCode
@@ -22,7 +26,9 @@ import kotlinx.coroutines.withContext
 class AppRepository(
     context: Context
 ) {
+    private val LOG_TAG = AppRepository::class.java.simpleName
     private val projectDao: ProjectDao = AppDatabase.getDatabase(context).projectDao
+    private val counterDao: CounterDao = AppDatabase.getDatabase(context).counterDao
 
     private val _projectData: MutableStateFlow<List<Project>> = MutableStateFlow(emptyList())
     val projectData: StateFlow<List<Project>> = _projectData
@@ -54,6 +60,27 @@ class AppRepository(
                 val savedProject = projectDao.addProject(project)
                 refreshProjectData()
 
+                val globalCounter = Counter(
+                    isGlobal = true,
+                    counterName = "Global",
+                    showLink = false,
+                    canReset = false,
+                    canBeUserDeleted = false,
+                    owningProjectId = savedProject,
+                )
+
+                val stitchCounter = Counter(
+                    isStitch = true,
+                    counterName = "Stitches",
+                    showLink = false,
+                    canReset = false,
+                    canBeUserDeleted = false,
+                    owningProjectId = savedProject,
+                )
+
+                counterDao.addCounter(globalCounter)
+                counterDao.addCounter(stitchCounter)
+
                 DatabaseResult(
                     code = DatabaseResultCode.CreationSuccess,
                     entity = savedProject,
@@ -74,11 +101,29 @@ class AppRepository(
         withContext(Dispatchers.IO) {
             try {
                 projectDao.removeProject(projectId)
+
                 refreshProjectData()
+
+                val counters = counterDao.getProjectCounters(projectId)
+
+                for(counter in counters) {
+                    counterDao.removeCounter(counter.id)
+                }
+
                 callback()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    suspend fun getProjectCounters(projectId: Long): List<Counter> {
+        return withContext(Dispatchers.IO) {
+            val counters = counterDao.getProjectCounters(projectId)
+
+            Log.i(LOG_TAG, "Returning project counters size: ${counters.size}")
+
+            counters
         }
     }
 

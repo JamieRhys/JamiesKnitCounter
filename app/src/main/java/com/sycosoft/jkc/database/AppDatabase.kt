@@ -4,8 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.sycosoft.jkc.database.dao.CounterDao
 import com.sycosoft.jkc.database.dao.ProjectDao
+import com.sycosoft.jkc.database.entities.Counter
 import com.sycosoft.jkc.database.entities.Project
+import com.sycosoft.jkc.database.entities.ProjectWithCounters
 
 /**
  * This manages our applications database connection.
@@ -16,12 +19,12 @@ import com.sycosoft.jkc.database.entities.Project
  */
 // Let's define the databases configuration
 @Database(
-    entities = [Project::class], // List of entity classes that will be a part of the database.
-    version = 2 // The version of the database.
+    entities = [Project::class, Counter::class], // List of entity classes that will be a part of the database.
+    version = 4 // The version of the database.
 )
 abstract class AppDatabase: RoomDatabase() {
     abstract val projectDao: ProjectDao
-
+    abstract val counterDao: CounterDao
 
     companion object {
         // This volatile variable ensures that the value is read from and written to main memory directly,
