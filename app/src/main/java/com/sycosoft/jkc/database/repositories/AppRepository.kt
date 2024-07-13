@@ -33,6 +33,9 @@ class AppRepository(
     private val _projectData: MutableStateFlow<List<Project>> = MutableStateFlow(emptyList())
     val projectData: StateFlow<List<Project>> = _projectData
 
+    private val _counterData: MutableStateFlow<List<Counter>> = MutableStateFlow(emptyList())
+    val counterData: StateFlow<List<Counter>> = _counterData
+
     /**
      * Initialises the repository and then calls the callback function, once done.
      */
@@ -52,7 +55,11 @@ class AppRepository(
     }
 
     /**
-     * Adds a project to the database.
+     * Adds a project to the database. It also creates a global and stitch counter and links them to
+     * the new project.
+     *
+     * @param project The project to be added.
+     * @return The result of the operation as a [DatabaseResult].
      */
     suspend fun addProject(project: Project): DatabaseResult<Long> {
         return withContext(Dispatchers.IO) {
@@ -89,6 +96,28 @@ class AppRepository(
                 exception.printStackTrace()
                 DatabaseResult(
                     code = DatabaseResultCode.CreationFailure,
+                    message = exception.message
+                )
+            }
+        }
+    }
+
+    suspend fun addCounter(counter: Counter): DatabaseResult<Long> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val savedCounter = counterDao.addCounter(counter)
+
+                getProjectCounters(counter.owningProjectId)
+
+                DatabaseResult(
+                    code = DatabaseResultCode.CreationSuccess,
+                    entity = savedCounter,
+                )
+            } catch(exception: Exception) {
+                exception.printStackTrace()
+                DatabaseResult(
+                    code = DatabaseResultCode.CreationFailure,
+                    message = exception.message
                 )
             }
         }
@@ -96,6 +125,7 @@ class AppRepository(
 
     /**
      * Removes a project from the database and then triggers the callback function once done.
+     * It also removes all counters that are associated with the project from the database.
      */
     suspend fun removeProject(projectId: Long, callback: (() -> Unit)) {
         withContext(Dispatchers.IO) {
@@ -119,11 +149,7 @@ class AppRepository(
 
     suspend fun getProjectCounters(projectId: Long): List<Counter> {
         return withContext(Dispatchers.IO) {
-            val counters = counterDao.getProjectCounters(projectId)
-
-            Log.i(LOG_TAG, "Returning project counters size: ${counters.size}")
-
-            counters
+            counterDao.getProjectCounters(projectId)
         }
     }
 

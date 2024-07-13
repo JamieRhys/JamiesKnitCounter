@@ -11,9 +11,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.sycosoft.jkc.database.AppDatabase
 import com.sycosoft.jkc.database.repositories.AppRepository
+import com.sycosoft.jkc.ui.views.AddCounterPage
 import com.sycosoft.jkc.ui.views.AddProjectPage
 import com.sycosoft.jkc.ui.views.HomePage
 import com.sycosoft.jkc.ui.views.ProjectPage
+import com.sycosoft.jkc.viewmodels.AddCounterPageViewModel
 import com.sycosoft.jkc.viewmodels.AddProjectPageViewModel
 import com.sycosoft.jkc.viewmodels.HomePageViewModel
 import com.sycosoft.jkc.viewmodels.ProjectPageViewModel
@@ -32,6 +34,7 @@ fun AppNavigation(
 
     // Initialise all of the view models we are using.
     val homePageViewModel = HomePageViewModel(appRepository)
+    val addCounterPageViewModel = AddCounterPageViewModel(appRepository)
     val addProjectPageViewModel = AddProjectPageViewModel(appRepository)
     val projectPageViewModel = ProjectPageViewModel(appRepository)
 
@@ -52,6 +55,22 @@ fun AppNavigation(
             AddProjectPage(
                 navController = navController,
                 viewModel = addProjectPageViewModel
+            )
+        }
+        composable(
+            route = NavigationDestination.AddCounterPage.route.plus("{$projectIdKey}"),
+            arguments = listOf(
+                navArgument(projectIdKey) {
+                    type = NavType.LongType
+                }
+            )) { navBackStackEntry ->
+            // Get the project id from the back stack. If this is null, assign a value of 0.
+            val projectId = navBackStackEntry.arguments?.getLong(projectIdKey) ?: 0L
+
+            // Pass the project ID to the page.
+            AddCounterPage(
+                navController = navController,
+                viewModel = addCounterPageViewModel,
             )
         }
         composable(

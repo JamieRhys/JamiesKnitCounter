@@ -37,6 +37,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.sycosoft.jkc.R
 import com.sycosoft.jkc.database.repositories.AppRepository
+import com.sycosoft.jkc.navigation.NavigationDestination
 import com.sycosoft.jkc.ui.components.counters.TopCounter
 import com.sycosoft.jkc.ui.theme.JKCTheme
 import com.sycosoft.jkc.util.LoadingState
@@ -58,7 +59,7 @@ fun ProjectPage(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-
+                    navController.navigate(NavigationDestination.AddCounterPage.route)
                 }
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)

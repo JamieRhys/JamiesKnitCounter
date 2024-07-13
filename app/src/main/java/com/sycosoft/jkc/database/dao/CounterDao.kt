@@ -15,7 +15,7 @@ interface CounterDao {
     suspend fun getProjectCounters(id: Long): List<Counter>
 
     @Insert
-    fun addCounter(counter: Counter)
+    fun addCounter(counter: Counter): Long
 
     @Query("DELETE FROM table_counters WHERE id = :id")
     fun removeCounter(id: Long)
