@@ -190,7 +190,17 @@ class ProjectPageViewModel(
         }
     }
 
-    fun counterGloballyLinked(index: Int) {
+    /** Takes the passed index of the counters list, searches the list for the counter at the index location
+     * and then toggles the [Counter.isGloballyLinked] property. It then updates the list and the database with
+     * the new value.
+     *
+     * @property index The index of the [Counter] within the counters list.
+     *
+     * @author Jamie-Rhys Edwards
+     * @since v0.0.1
+     *
+     */
+    fun toggleGloballyLinked(index: Int) {
         viewModelScope.launch {
             val updatedCounter = _counters.value[index].copy().apply { globallyLinked() }
 
