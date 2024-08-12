@@ -20,6 +20,7 @@
     <string name="label_delete_project">Do you want to delete the project %s?</string>
     <string name="label_global">Global</string>
     <string name="label_invalid_project_id">Invalid project ID passed. Returning back to home page.</string>
+    <string name="label_loading">Loading…</string>
     <string name="label_project_added_failure">Project could not be added.</string>
     <string name="label_project_added_success">Project added successfully!</string>
     <string name="label_project_description">Project Description</string>

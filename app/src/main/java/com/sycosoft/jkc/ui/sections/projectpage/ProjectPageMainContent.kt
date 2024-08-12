@@ -26,6 +26,7 @@ fun ProjectPageMainContent(
     projectName: String,
     timer: String,
     counters: List<Counter>,
+    partName: String,
     onBackButtonPressed: () -> Unit,
     onCounterIncrementButtonPressed: (Int) -> Unit,
     onCounterDecrementButtonPressed: (Int) -> Unit,
@@ -87,7 +88,7 @@ fun ProjectPageMainContent(
             }
         }
         ProjectPageBottomBar(
-            partName = "Part Name",
+            partName = partName,
             onPartChangeButtonPressed = { /*TODO*/ },
             onTimerButtonPressed = { /*TODO*/ },
             onAddButtonPressed = { /*TODO*/ },
@@ -138,6 +139,7 @@ private fun LightPreview() {
                         isGloballyLinked = false,
                     ),
                 ),
+                partName = "Part 1",
                 onBackButtonPressed = {},
                 onCounterIncrementButtonPressed = {},
                 onCounterDecrementButtonPressed = {},
@@ -192,6 +194,7 @@ private fun DarkPreview() {
                         isGloballyLinked = false,
                     ),
                 ),
+                partName = "Part 1",
                 onBackButtonPressed = {},
                 onCounterIncrementButtonPressed = {},
                 onCounterDecrementButtonPressed = {},

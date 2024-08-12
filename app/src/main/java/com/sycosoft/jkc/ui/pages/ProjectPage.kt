@@ -11,8 +11,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.sycosoft.jkc.R
 import com.sycosoft.jkc.database.AppDatabase
 import com.sycosoft.jkc.database.repository.AppRepository
 import com.sycosoft.jkc.ui.sections.projectpage.ProjectPageLoadingContent
@@ -50,6 +52,7 @@ fun ProjectPage(
                             projectName = project?.name!!,
                             timer = "00:00:00",
                             counters = counters,
+                            partName = activePart?.name ?: stringResource(id = R.string.label_loading),
                             onBackButtonPressed = { nav.popBackStack() },
                             onCounterIncrementButtonPressed = { index -> viewModel.incrementCounter(index) },
                             onCounterDecrementButtonPressed = { index -> viewModel.decrementCounter(index) },
