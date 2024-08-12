@@ -1,9 +1,9 @@
 package com.sycosoft.jkc.util
 
-/** The loading state of the app when communicating to the database. */
+/** This enum allows us to track the loading state of the page at any time. */
 enum class LoadingState {
     Idle,
-    Success,
     Loading,
+    Success,
     Failure,
 }

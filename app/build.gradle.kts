@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.dokka)
 }
 
 android {
@@ -46,6 +47,22 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/LICENSE-notice.md"
+            excludes += "META-INF/LICENSE.md"
+            excludes += "mockito-extensions/org.mockito.plugins.MemberAccessor"
+            excludes += "META-INF/mockito-extensions/org.mockito.plugins.MemberAccessor"
+            excludes += "mockito-extensions/org.mockito.plugins.MockMaker"
+        }
+    }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+    dokkaSourceSets {
+        named("main") {
+            outputDirectory.set(layout.buildDirectory.dir("dokka"))
         }
     }
 }
@@ -63,9 +80,17 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.runner)
+    implementation(libs.icons.extended)
+    testImplementation(libs.testng)
     ksp(libs.room.compiler)
     implementation(libs.room.ktx)
     testImplementation(libs.junit)
+    testImplementation(libs.mockito)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.coroutines.tests)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

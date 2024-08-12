@@ -12,6 +12,15 @@ composeBom = "2024.06.00"
 room = "2.6.1"
 navigationRuntimeKtx = "2.7.7"
 navigationCompose = "2.7.7"
+junitKtx = "1.2.1"
+dokka = "1.9.20"
+mockito = "5.12.0"
+mockito-kotlin = "5.4.0"
+mockito-inline = "5.2.0"
+coroutines-tests = "1.5.1"
+runner = "1.6.1"
+testng = "6.9.6"
+icons = "1.6.8"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,9 +42,18 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito-kotlin"}
+mockito-android = { group = "org.mockito", name = "mockito-android", version.ref = "mockito-kotlin" }
+mockito-inline = { group = "org.mockito", name = "mockito-inline", version.ref = "mockito-inline" }
+coroutines-tests = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines-tests"}
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+testng = { group = "org.testng", name = "testng", version.ref = "testng" }
+icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "icons" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }

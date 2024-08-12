@@ -1,7 +1,6 @@
-package com.sycosoft.jkc.ui.components
+package com.sycosoft.jkc.ui.components.lists
 
-import android.util.Log
-import android.widget.Toast
+import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.slideInHorizontally
@@ -9,9 +8,7 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -31,27 +28,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sycosoft.jkc.ui.theme.JKCTheme
 
-/**
- * Displays the name of the project given to it. When the user long clicks on the [ListItem], it will
- * animate buttons in and out which allows the user to either delete or edit the project in question.
- *
- * @param name The name of the project to be displayed.
- * @param onClicked The function to be called when the [ListItem] is clicked on.
- * @param onEditButtonPressed The function to be called when the edit button is pressed.
- * @param onDeleteButtonPressed The function to be called when the delete button is pressed.
- */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ListItem(
+fun HomePageListItem(
     name: String,
-    onClicked: (() -> Unit),
-    onEditButtonPressed: (() -> Unit),
-    onDeleteButtonPressed: (() -> Unit),
+    onClicked: () -> Unit,
+    onEditButtonPressed: () -> Unit,
+    onDeleteButtonPressed: () -> Unit,
 ) {
     // Controls the visibility of the button rail.
     var showButtons by remember { mutableStateOf(false) }
@@ -98,7 +85,7 @@ fun ListItem(
                 ) {
                     IconButton(onClick = onEditButtonPressed) {
                         Icon(
-                            Icons.Default.Edit,
+                            imageVector = Icons.Default.Edit,
                             tint = Color.Cyan,
                             contentDescription = null
                         )
@@ -119,13 +106,13 @@ fun ListItem(
     }
 }
 
-@Preview
+@Preview(name = "Light Mode")
 @Composable
-private fun LM_ListItem() {
+private fun LM_HomePageListItemPreview() {
     JKCTheme {
         Surface {
-            ListItem(
-                name = "Project",
+            HomePageListItem(
+                name = "Project Name",
                 onClicked = {},
                 onEditButtonPressed = {},
                 onDeleteButtonPressed = {},
@@ -134,13 +121,15 @@ private fun LM_ListItem() {
     }
 }
 
-@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
+    name = "Dark Mode"
+)
 @Composable
-private fun DM_ListItem() {
+private fun DM_HomePageListItemPreview() {
     JKCTheme {
         Surface {
-            ListItem(
-                name = "Project",
+            HomePageListItem(
+                name = "Project Name",
                 onClicked = {},
                 onEditButtonPressed = {},
                 onDeleteButtonPressed = {},

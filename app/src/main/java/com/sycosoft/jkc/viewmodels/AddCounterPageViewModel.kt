@@ -2,34 +2,37 @@ package com.sycosoft.jkc.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sycosoft.jkc.database.entities.Counter
-import com.sycosoft.jkc.database.repositories.AppRepository
-import com.sycosoft.jkc.database.result.DatabaseResultCode
+import com.sycosoft.jkc.database.repository.AppRepository
 import com.sycosoft.jkc.util.LoadingState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class AddCounterPageViewModel(
-    private val appRepository: AppRepository
+    private val appRepository: AppRepository,
+    private val owningPartId: Long,
+    owningPartName: String,
 ) : ViewModel() {
-    private val _loadingState = MutableStateFlow(LoadingState.Idle)
+    private var _owningPartName = MutableStateFlow(owningPartName)
+    val owningPartName: StateFlow<String> = _owningPartName
+
+    private var _loadingState = MutableStateFlow(LoadingState.Idle)
     val loadingState: StateFlow<LoadingState> = _loadingState
 
-    // TODO: Test to be sure this works as expected. Run on device to make sure it switches between the two views.
+    fun addCounter(
+        counterName: String,
+        incrementCounterBy: String,
+        isGloballyLinked: Boolean,
+        resetRow: String,
+        maxResets: String,
+    ) {
+        _loadingState.value = LoadingState.Loading
 
-    fun saveCounter(counter: Counter) {
         viewModelScope.launch {
-            _loadingState.value = LoadingState.Loading
+            delay(1000)
 
-            val savedCounter = appRepository.addCounter(counter)
-
-            if(savedCounter.code != DatabaseResultCode.CreationSuccess) {
-                _loadingState.value = LoadingState.Failure
-            }
-            else {
-                _loadingState.value = LoadingState.Success
-            }
+            _loadingState.value = LoadingState.Success
         }
     }
 }

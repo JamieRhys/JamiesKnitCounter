@@ -1,24 +1,42 @@
 <resources>
     <string name="app_name">Jamies Knit Counter</string>
 
+    <string name="button_add">Add</string>
+    <string name="button_back">Back</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_confirm">Confirm</string>
+    <string name="button_question_mark">More Information</string>
+    <string name="button_no">No</string>
+    <string name="button_ok">OK</string>
+    <string name="button_yes">Yes</string>
+
+    <string name="label_add_counter_header">Here\'s where you can add a counter to %s.</string>
+    <string name="label_completed">Completed</string>
+    <string name="label_counter_name">Counter name</string>
+    <string name="label_counter_increments_by">Increments by</string>
+    <string name="label_counter_linked_global_counter">Is it linked to the global counter?</string>
+    <string name="label_counter_max_resets">Max resets</string>
+    <string name="label_counter_reset_row">Row counter resets</string>
+    <string name="label_delete_project">Do you want to delete the project %s?</string>
+    <string name="label_global">Global</string>
+    <string name="label_invalid_project_id">Invalid project ID passed. Returning back to home page.</string>
+    <string name="label_project_added_failure">Project could not be added.</string>
+    <string name="label_project_added_success">Project added successfully!</string>
+    <string name="label_project_description">Project Description</string>
+    <string name="label_project_name">Project Name</string>
+    <string name="label_project_type">What type of project is this?</string>
+    <string name="label_rows">Rows</string>
+    <string name="label_stitches">Stitches</string>
+    <string name="label_time">Time</string>
+
+    <string name="text_max_resets_description">The number of times the counter can reset. If set to 0, there is no limit.</string>
+    <string name="text_project_edited">It looks like you\'ve started answering the questions, are you sure you wish to go back?</string>
+    <string name="text_reset_row_description">When the counter reaches the reset row, it will reset back to 0. If set to 0, the counter will not reset.</string>
+
+    <string name="title_add_counter">Add Counter</string>
     <string name="title_add_project">Add Project</string>
     <string name="title_confirm">Are you sure?</string>
     <string name="title_success">Success!</string>
     <string name="title_failure">Failure.</string>
     <string name="title_uhoh">Uh Oh!</string>
-
-    <string name="label_delete_project">Do you want to delete the project %s?</string>
-    <string name="label_invalid_project_id">Invalid project ID passed. Returning back to home page.</string>
-    <string name="label_project_added_failure">Project could not be added.</string>
-    <string name="label_project_added_success">Project added successfully!</string>
-    <string name="label_project_name">Project Name</string>
-    <string name="label_completed">Completed</string>
-    <string name="label_global">Global</string>
-    <string name="label_rows">Rows</string>
-    <string name="label_stitches">Stitches</string>
-    <string name="label_time">Time</string>
-
-    <string name="button_cancel">Cancel</string>
-    <string name="button_confirm">Confirm</string>
-    <string name="button_ok">OK</string>
 </resources>
